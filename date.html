@@ -5,22 +5,35 @@
         @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
 #lbl {
     font-family: "Bricolage Grotesque", sans-serif;
-    font-size: xx-large;
+    font-size: 40px;
     color: white;
-    padding: 5px;
-    border: 1px solid #ececec;
     text-align: center;
-    line-height: 1.5;
-    height:85%
+    line-height: 1.05;
 }
-#date{
+
+#time{
     font-size:large;
+    display: inline-block;
+    font-size: 140px;
+}
+
+#am-pm {
+    display: inline-block;
+    font-size: 80px;
 }
         
 body{
     background-image: url('https://flocus.com/online-aura-clock/images/aura.jpg');
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
+    background-attachment:fixed;
+    background-position:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+
 }
         
     </style>
@@ -39,25 +52,35 @@ body{
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
 
+    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     
     var today = new Date();
     var hrs = today.getHours();
+    let min = today.getMinutes();
     var dayOfWeek = weekday[today.getDay()];
-    var date = dayOfWeek+" " + today.getDate() + "/" +(today.getMonth()+1) +'/'+today.getFullYear()  ;
+    let monthName = month[today.getMonth()];
+    var date = dayOfWeek+", " +  monthName + " " + today.getDate() ;
 
     var greet;
     var re;
 
-    if (hrs < 12)
-        greet = 'Good Morning  ';
-        re = 'AM'
-    else if (hrs >= 12 && hrs <= 17)
-        greet = 'Good Afternoon ';
-        re = 'PM'
+    if (hrs < 12){
+        greet = 'Good Morning';
+        re = 'AM';
+    }
+    else if (hrs >= 12 && hrs <= 17){
+        greet = 'Good Afternoon';
+        re = 'PM';
+    }
     else if (hrs >= 17 && hrs <= 24)
-        greet = 'Good Evening  ';
+        greet = 'Good Evening';
+
+    hrs = hrs < 10 ? "0" + hrs : hrs;
+    min = min < 10 ? "0" + min : min;
+
+    let currentTime = hrs + ":" + min;
 
     document.getElementById('lbl').innerHTML =
-        greet+=` Alyssa <div id="date"> ${date}</div>`;
+        greet+=`, Alyssa <div id="time">${currentTime}</div> <div id="am-pm"> ${re}</div>  ${date}`;
 </script> 
 </html>
